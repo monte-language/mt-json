@@ -6,9 +6,9 @@ let
   typhon = nixpkgs.callPackage typhonPackage {};
   typhonVm = typhon.typhonVm;
   mast = typhon.mast;
-  json = stdenv.mkDerivation rec {
-    name = "monte-json";
-    buildInputs = [ typhonVm mast ];
+  json = typhon.montePackage rec {
+    name = "json";
+    version = "0.0.0.0";
     buildPhase = ''
       ${typhonVm}/mt-typhon -l ${mast}/mast ${mast}/mast/montec -mix -format mast $src/json.mt json.mast
       '';
@@ -16,10 +16,9 @@ let
       mkdir -p $out/mast
       cp json.mast $out/mast/
       '';
-    doCheck = false;
     # Cargo-culted.
     src = builtins.filterSource (path: type: lib.hasSuffix ".mt" path) ./.;
   };
-  jobs = with nixpkgs; { monte-json = json; };
+  mtpkg = with nixpkgs; { monte-json = json; };
 in
-  jobs
+  mtpkg
