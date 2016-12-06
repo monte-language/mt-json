@@ -1,0 +1,10 @@
+{
+  "authors": [
+    "Corbin Simpson", "Justin Noah <justinnoah@gmail.com>"
+  ],
+  "name": "mt-json",
+  "paths": ["."],
+  "entrypoint": "src/json",
+  "version": "0.1.0",
+  "dependencies": {}
+}
